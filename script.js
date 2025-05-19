@@ -3,9 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const toggle = document.getElementById('darkModeSwitch');
     if (toggle) {
       toggle.addEventListener('click', function() {
-
-        // qua ci va la logica per mettere la classe dark-mode o light-mode
-
+        document.body.classList.toggle('dark-mode');
         localStorage.setItem('darkmode', document.body.classList.contains('dark-mode'));
       });
       // Persistenza su reload
@@ -20,9 +18,12 @@ document.addEventListener('DOMContentLoaded', function() {
       form.addEventListener('submit', function(e) {
         e.preventDefault();
         const name = form.elements['name'].value.trim();
-     
-        // altri campi del form per la validazione
-
+        const email = form.elements['email'].value.trim();
+        const message = form.elements['message'].value.trim();
+        if (!name || !email || !message || !/^\S+@\S+\.\S+$/.test(email)) {
+          alert('Compila tutti i campi e inserisci un’email valida!');
+          return;
+        }
         // Successo: mostra modal Bootstrap se c'è, altrimenti alert
         const modal = document.getElementById('successModal');
         if (modal) {
